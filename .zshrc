@@ -49,6 +49,7 @@ alias cns="pyenv activate cns"
 
 alias git-dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias zshrc="vim ~/.zshrc"
+alias zshrclocal="vim ~/.zshrc.local"
 alias vimrc="vim ~/.vimrc"
 alias yabairc='vim ~/.config/yabai/yabairc'
 alias skhdrc="vim ~/.config/skhd/skhdrc"
