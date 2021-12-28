@@ -38,7 +38,8 @@ hyper - x : yabai -m window --focus next || yabai -m window --focus first
 # toggle window sticky, think "lock/unlock"
 hyper - l : yabai -m window --toggle float
 hyper - p : yabai -m window --toggle topmost
-hyper - o : yabai -m window --toggle opacity
+hyper - o : yabai -m window --opacity 0.0
+hyper - i : yabai -m window --opacity 1.0
 
 # set width percentage size
 hyper - 1 : yabai -m window --ratio abs:0.25

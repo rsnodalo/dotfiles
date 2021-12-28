@@ -11,6 +11,7 @@ yabai -m rule --add app="^Finder$" manage=off opacity=1
 yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
 yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Google Chrome$" manage=on
 yabai -m rule --add app="^Spotify$" manage=off opacity=1
 yabai -m rule --add app="^Telegram$" manage=off opacity=1
 yabai -m rule --add app="^Viber$" manage=off opacity=1
