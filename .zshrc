@@ -44,9 +44,7 @@ function updatePrompt {
 }
 export PROMPT_COMMAND='updatePrompt'
 
-alias ws="pyenv activate workspace-3.9.4"
-alias cns="pyenv activate cns"
-alias cns-gcf="pyenv activate cns-gcf"
+alias ws="pyenv activate workspace-3.10.0"
 
 alias git-dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias zshrc="vim ~/.zshrc"
