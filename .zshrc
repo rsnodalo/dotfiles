@@ -57,3 +57,6 @@ alias skhdrc="vim ~/.config/skhd/skhdrc"
 alias swpfiles="open /Users/bastinodalo/.vim/swap//"
 
 source ~/.zshrc.local
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
