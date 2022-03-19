@@ -5,7 +5,9 @@
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # open spotify – desktop usually positioned before desktop 1
-hyper - 0x32 : open -na /Applications/Spotify.app
+hyper - 0x32 : open -na Spotify
+hyper - d : open -a Finder
+hyper - n : open -a Notes
 
 # "throw" to higher priority (west or north) by swapping with stack contents
 hyper - q : yabai -m window --swap west
