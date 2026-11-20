@@ -1,6 +1,3 @@
-# Brewfile — macOS packages, installed via `brew bundle`.
-tap "homebrew/bundle"
-
 brew "stow"    # symlink manager for these dotfiles
 brew "zsh"     # newer than the system zsh
 brew "neovim"
