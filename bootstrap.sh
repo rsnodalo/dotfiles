@@ -85,6 +85,16 @@ install_zsh_extras() {
   clone_or_update https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 }
 
+# ---- Claude Code -----------------------------------------------------------
+install_claude_code() {
+  if command -v claude >/dev/null 2>&1 || [[ -x "$HOME/.local/bin/claude" ]]; then
+    log "Claude Code already installed"
+  else
+    log "Installing Claude Code"
+    curl -fsSL https://claude.ai/install.sh | bash
+  fi
+}
+
 # ---- stow ------------------------------------------------------------------
 backup_if_real_file() { # move aside a real (non-symlink) file so stow won't refuse
   if [[ -e "$1" && ! -L "$1" ]]; then
@@ -101,7 +111,11 @@ stow_packages() {
   backup_if_real_file "$HOME/.zshrc"
   backup_if_real_file "$HOME/.p10k.zsh"
 
-  local shared=(zsh p10k nvim)
+  # Ensure ~/.claude exists as a real dir so Stow links only settings.json,
+  # not the whole directory (which Claude fills with local state).
+  mkdir -p "$HOME/.claude"
+
+  local shared=(zsh p10k nvim claude)
   log "Stowing shared packages: ${shared[*]}"
   stow --dir="$DOTFILES" --target="$HOME" --restow "${shared[@]}"
 
@@ -120,6 +134,7 @@ main() {
   esac
   install_oh_my_zsh
   install_zsh_extras
+  install_claude_code
   stow_packages
 
   log "Done. Start a new shell:  exec zsh"

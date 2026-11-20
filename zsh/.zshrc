@@ -10,6 +10,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# ---- PATH ------------------------------------------------------------------
+export PATH="$HOME/.local/bin:$PATH" # user binaries (Claude Code installs here)
+
 # ---- Homebrew (portable: macOS ARM, macOS Intel, Linuxbrew) ----------------
 for _brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
   if [[ -x "$_brew" ]]; then eval "$("$_brew" shellenv)"; break; fi
