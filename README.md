@@ -32,9 +32,11 @@ exec zsh
 
 `bootstrap.sh` is idempotent — safe to re-run any time. It:
 
-1. Installs packages (Homebrew + `Brewfile` on macOS; apt/dnf/pacman on Linux).
-2. Installs Oh My Zsh, Powerlevel10k, and zsh plugins.
+1. Installs packages (Homebrew + `Brewfile` on macOS; apt/dnf/pacman on Linux),
+   including `lazygit`, `ripgrep`, and `fd`.
+2. Installs Oh My Zsh, Powerlevel10k, zsh plugins, and Claude Code.
 3. Symlinks configs into `$HOME` with Stow (shared packages + the current OS package).
+4. Pre-installs Neovim plugins for the vendored **LazyVim** config (headless sync).
 
 After first run, set your terminal font to **MesloLGS NF** so Powerlevel10k icons render.
 
@@ -46,7 +48,8 @@ dotfiles/
 ├── Brewfile            # macOS packages
 ├── zsh/.zshrc          # shared shell config
 ├── p10k/.p10k.zsh      # Powerlevel10k prompt
-├── nvim/.config/nvim/  # Neovim
+├── nvim/.config/nvim/  # Neovim — LazyVim (edit lua/plugins/ to customize)
+├── claude/.claude/     # Claude Code settings.json
 ├── macos/              # macOS-only — stowed only on Darwin
 └── linux/              # Linux-only  — stowed only on Linux
 ```

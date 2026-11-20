@@ -49,14 +49,42 @@ install_packages_macos() {
 install_packages_linux() {
   log "Installing packages via system package manager"
   if   command -v apt-get >/dev/null 2>&1; then
-    sudo apt-get update && sudo apt-get install -y stow zsh neovim git curl
+    sudo apt-get update && sudo apt-get install -y stow zsh neovim git curl ripgrep fd-find
   elif command -v dnf    >/dev/null 2>&1; then
-    sudo dnf install -y stow zsh neovim git curl
+    sudo dnf install -y stow zsh neovim git curl ripgrep fd-find
   elif command -v pacman >/dev/null 2>&1; then
-    sudo pacman -Sy --noconfirm stow zsh neovim git curl
+    sudo pacman -Sy --noconfirm stow zsh neovim git curl ripgrep fd
   else
     warn "No supported package manager (apt/dnf/pacman). Install stow, zsh, neovim, git manually."
   fi
+}
+
+# lazygit isn't in every distro's default repos (notably Debian/Ubuntu apt),
+# so install via package manager when available, else the GitHub release binary.
+install_lazygit() {
+  [[ "$OS" == macos ]] && return # handled by Brewfile
+  command -v lazygit >/dev/null 2>&1 && { log "lazygit already installed"; return; }
+  if   command -v dnf    >/dev/null 2>&1 && sudo dnf install -y lazygit;          then return
+  elif command -v pacman >/dev/null 2>&1 && sudo pacman -S --noconfirm lazygit;   then return
+  fi
+  log "Installing lazygit from GitHub release"
+  local ver arch tmp
+  ver="$(curl -fsSL https://api.github.com/repos/jesseduffield/lazygit/releases/latest \
+        | grep -oP '"tag_name":\s*"v\K[^"]+')" || { warn "could not resolve lazygit version"; return; }
+  case "$(uname -m)" in
+    x86_64|amd64)  arch=x86_64 ;;
+    aarch64|arm64) arch=arm64 ;;
+    *) warn "unknown arch $(uname -m); install lazygit manually"; return ;;
+  esac
+  tmp="$(mktemp -d)"
+  if curl -fsSL "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${ver}_Linux_${arch}.tar.gz" -o "$tmp/lg.tar.gz" \
+     && tar -xzf "$tmp/lg.tar.gz" -C "$tmp" lazygit; then
+    mkdir -p "$HOME/.local/bin"
+    install "$tmp/lazygit" "$HOME/.local/bin/lazygit"
+  else
+    warn "lazygit download failed; install it manually"
+  fi
+  rm -rf "$tmp"
 }
 
 # ---- zsh ecosystem ---------------------------------------------------------
@@ -125,6 +153,14 @@ stow_packages() {
   fi
 }
 
+# ---- LazyVim ---------------------------------------------------------------
+sync_lazyvim() {
+  command -v nvim >/dev/null 2>&1 || { warn "nvim not found; skipping plugin sync"; return; }
+  log "Installing Neovim plugins (LazyVim) — headless"
+  nvim --headless "+Lazy! sync" +qa 2>/dev/null \
+    || warn "Plugin sync didn't complete; it will finish on first 'nvim' launch"
+}
+
 # ---- main ------------------------------------------------------------------
 main() {
   log "Bootstrapping from $DOTFILES  (os: $OS)"
@@ -135,7 +171,9 @@ main() {
   install_oh_my_zsh
   install_zsh_extras
   install_claude_code
+  install_lazygit
   stow_packages
+  sync_lazyvim
 
   log "Done. Start a new shell:  exec zsh"
   if [[ "$OS" == linux && "${SHELL:-}" != *zsh ]]; then
