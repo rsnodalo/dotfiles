@@ -161,6 +161,20 @@ sync_lazyvim() {
     || warn "Plugin sync didn't complete; it will finish on first 'nvim' launch"
 }
 
+# ---- iTerm2 ----------------------------------------------------------------
+# Point iTerm2 at a repo-tracked prefs folder so its config (font, colors,
+# profiles) is version-controlled and restored on every machine.
+configure_iterm2() {
+  [[ "$OS" == macos ]] || return
+  local pref_dir="$DOTFILES/iterm2"
+  mkdir -p "$pref_dir"
+  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$pref_dir"
+  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+  log "iTerm2 will load/save preferences in $pref_dir"
+  warn "First launch: set font to 'FiraCode Nerd Font', run iTerm2 > Make iTerm2 Default Term,"
+  warn "and enable Settings > General > Settings > 'Save changes to folder when iTerm2 quits'."
+}
+
 # ---- main ------------------------------------------------------------------
 main() {
   log "Bootstrapping from $DOTFILES  (os: $OS)"
@@ -174,6 +188,7 @@ main() {
   install_lazygit
   stow_packages
   sync_lazyvim
+  configure_iterm2
 
   log "Done. Start a new shell:  exec zsh"
   if [[ "$OS" == linux && "${SHELL:-}" != *zsh ]]; then

@@ -38,7 +38,9 @@ exec zsh
 3. Symlinks configs into `$HOME` with Stow (shared packages + the current OS package).
 4. Pre-installs Neovim plugins for the vendored **LazyVim** config (headless sync).
 
-After first run, set your terminal font to **MesloLGS NF** so Powerlevel10k icons render.
+After first run (macOS): open **iTerm2**, set its font to **FiraCode Nerd Font**,
+and run *iTerm2 → Make iTerm2 Default Term*. See [`iterm2/README.md`](iterm2/README.md)
+to make its settings version-controlled. Any Nerd Font works for the icons.
 
 ## Layout
 
@@ -50,6 +52,7 @@ dotfiles/
 ├── p10k/.p10k.zsh      # Powerlevel10k prompt
 ├── nvim/.config/nvim/  # Neovim — LazyVim (edit lua/plugins/ to customize)
 ├── claude/.claude/     # Claude Code settings.json
+├── iterm2/             # iTerm2 prefs (loaded via PrefsCustomFolder, not stowed)
 ├── macos/              # macOS-only — stowed only on Darwin
 └── linux/              # Linux-only  — stowed only on Linux
 ```

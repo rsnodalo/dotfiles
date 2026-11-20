@@ -9,6 +9,12 @@ brew "lazygit" # terminal UI for git (LazyVim <leader>gg)
 brew "ripgrep" # fast search — required by LazyVim Telescope/grep
 brew "fd"      # fast file finder — used by LazyVim pickers
 
-# Nerd Font so Powerlevel10k icons render. After install, set your terminal
-# font to "MesloLGS NF".
-cask "font-meslo-lg-nerd-font"
+# Terminal
+cask "iterm2"
+
+# Fonts. Nerd Font variants carry the icon glyphs Powerlevel10k + LazyVim need.
+cask "font-fira-code-nerd-font" # daily driver: Fira + ligatures + icons
+cask "font-meslo-lg-nerd-font"  # Powerlevel10k's reference font (fallback)
+# Want to try something new? Uncomment to A/B test:
+# cask "font-monaspace-nerd-font"   # GitHub's superfamily, "texture healing"
+# cask "font-jetbrains-mono-nerd-font"
