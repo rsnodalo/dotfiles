@@ -38,9 +38,12 @@ exec zsh
 3. Symlinks configs into `$HOME` with Stow (shared packages + the current OS package).
 4. Pre-installs Neovim plugins for the vendored **LazyVim** config (headless sync).
 
-After first run (macOS): open **iTerm2**, set its font to **FiraCode Nerd Font**,
-and run *iTerm2 → Make iTerm2 Default Term*. See [`iterm2/README.md`](iterm2/README.md)
-to make its settings version-controlled. Any Nerd Font works for the icons.
+After first run (macOS): open **iTerm2**, set its font to **Monaspace Neon** (the
+`-nf` build, so icons render), and run *iTerm2 → Make iTerm2 Default Term*. See
+[`iterm2/README.md`](iterm2/README.md) to make its settings version-controlled.
+
+Fonts installed (GitHub's type system): **Monaspace** (code), **Mona Sans**
+(body), **Hubot Sans** (display).
 
 ## Layout
 

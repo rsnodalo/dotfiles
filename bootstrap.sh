@@ -171,7 +171,7 @@ configure_iterm2() {
   defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$pref_dir"
   defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
   log "iTerm2 will load/save preferences in $pref_dir"
-  warn "First launch: set font to 'FiraCode Nerd Font', run iTerm2 > Make iTerm2 Default Term,"
+  warn "First launch: set font to 'Monaspace Neon' (NF build), run iTerm2 > Make iTerm2 Default Term,"
   warn "and enable Settings > General > Settings > 'Save changes to folder when iTerm2 quits'."
 }
 
