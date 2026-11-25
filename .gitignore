@@ -1,3 +1,7 @@
 .DS_Store
 *.swp
 *.swo
+
+# Karabiner-Elements writes these into its (stowed) config dir
+macos/.config/karabiner/automatic_backups/
+macos/.config/karabiner/assets/

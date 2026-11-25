@@ -147,6 +147,13 @@ stow_packages() {
   log "Stowing shared packages: ${shared[*]}"
   stow --dir="$DOTFILES" --target="$HOME" --restow "${shared[@]}"
 
+  if [[ "$OS" == macos ]]; then
+    # Karabiner rewrites karabiner.json in place, which breaks a file symlink.
+    # Stow must link the whole ~/.config/karabiner dir, so move aside any real
+    # dir Karabiner created on an earlier launch.
+    backup_if_real_file "$HOME/.config/karabiner"
+  fi
+
   if [[ -d "$DOTFILES/$OS" ]]; then
     log "Stowing OS package: $OS"
     stow --dir="$DOTFILES" --target="$HOME" --restow "$OS"
@@ -175,6 +182,22 @@ configure_iterm2() {
   warn "and enable Settings > General > Settings > 'Save changes to folder when iTerm2 quits'."
 }
 
+# ---- Karabiner-Elements ----------------------------------------------------
+# Config is stowed from macos/.config/karabiner. macOS requires the driver and
+# permissions to be approved by hand — scripts can't grant them.
+configure_karabiner() {
+  [[ "$OS" == macos ]] || return
+  [[ -d "/Applications/Karabiner-Elements.app" ]] || { warn "Karabiner-Elements not installed; skipping"; return; }
+  if ! pgrep -q karabiner_console_user_server; then
+    log "Launching Karabiner-Elements (first-run permission prompts)"
+    open -a "Karabiner-Elements" || true
+    warn "Karabiner: approve the driver extension and grant Input Monitoring to"
+    warn "karabiner_grabber + karabiner_observer in System Settings > Privacy & Security."
+  else
+    log "Karabiner-Elements running — Caps Lock is Hyper (hold) / Escape (tap)"
+  fi
+}
+
 # ---- main ------------------------------------------------------------------
 main() {
   log "Bootstrapping from $DOTFILES  (os: $OS)"
@@ -189,6 +212,7 @@ main() {
   stow_packages
   sync_lazyvim
   configure_iterm2
+  configure_karabiner
 
   log "Done. Start a new shell:  exec zsh"
   if [[ "$OS" == linux && "${SHELL:-}" != *zsh ]]; then

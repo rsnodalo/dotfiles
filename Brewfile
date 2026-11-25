@@ -9,6 +9,9 @@ brew "fd"      # fast file finder — used by LazyVim pickers
 # Terminal
 cask "iterm2"
 
+# Keyboard — Caps Lock → Hyper (⌃⌥⇧⌘) / Escape. Config: macos/.config/karabiner/
+cask "karabiner-elements"
+
 # Fonts — GitHub's type system. The NF build carries the icon glyphs that
 # Powerlevel10k + LazyVim need.
 cask "font-monaspace-nf" # code (terminal & editor): Monaspace + Nerd Font icons

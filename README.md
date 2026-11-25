@@ -42,6 +42,14 @@ After first run (macOS): open **iTerm2**, set its font to **Monaspace Neon** (th
 `-nf` build, so icons render), and run *iTerm2 → Make iTerm2 Default Term*. See
 [`iterm2/README.md`](iterm2/README.md) to make its settings version-controlled.
 
+**Karabiner-Elements** (macOS) maps **Caps Lock → Hyper (⌃⌥⇧⌘) when held,
+Escape when tapped**. On first launch approve its driver extension and grant
+*Input Monitoring* to `karabiner_grabber` / `karabiner_observer` in
+System Settings → Privacy & Security. Config lives in
+`macos/.config/karabiner/karabiner.json` (the whole dir is stowed, because
+Karabiner rewrites the file in place). Edits made in the Karabiner UI land
+straight in the repo — just commit them.
+
 Fonts installed (GitHub's type system): **Monaspace** (code), **Mona Sans**
 (body), **Hubot Sans** (display).
 
@@ -56,7 +64,7 @@ dotfiles/
 ├── nvim/.config/nvim/  # Neovim — LazyVim (edit lua/plugins/ to customize)
 ├── claude/.claude/     # Claude Code settings.json
 ├── iterm2/             # iTerm2 prefs (loaded via PrefsCustomFolder, not stowed)
-├── macos/              # macOS-only — stowed only on Darwin
+├── macos/              # macOS-only — stowed only on Darwin (zsh conf.d, Karabiner)
 └── linux/              # Linux-only  — stowed only on Linux
 ```
 
